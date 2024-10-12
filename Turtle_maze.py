@@ -309,20 +309,20 @@ def text():
     turtle.pencolor("red")
     turtle.write("Puzzle Solved", font=("Algerian", 50, "normal"), align="center")
     turtle.penup()
-    turtle.goto(220,165)
+    turtle.goto(220,175)
     turtle.pendown()
     turtle.pencolor("Blue")
     turtle.write("Time", font=("Aerial", 20, "normal"), align="center")
     turtle.penup()
-    turtle.goto(230,140)
+    turtle.goto(230,150)
     turtle.pendown()
     
     time= end-start
     print(time)
     if time>=60:
-        min= time/60
+        min= time//60
         sec= time%60
-        turtle.write(f"{min:.2f}min {sec:.2f}s", font=("Aerial", 20, "normal"), align="center")
+        turtle.write(f"{min}min {sec:.2f}s", font=("Aerial", 20, "normal"), align="center")
     
     else:
 
