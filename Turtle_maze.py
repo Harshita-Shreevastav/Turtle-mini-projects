@@ -366,7 +366,7 @@ create_maze()
 cursor.showturtle()
 cursor.color("grey","green")
 cursor.shape("turtle")
-cursor.speed(1)
+cursor.speed(10)
 cursor.width(1)
 
 win.listen()
