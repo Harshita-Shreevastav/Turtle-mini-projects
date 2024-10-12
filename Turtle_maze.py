@@ -1,4 +1,6 @@
 import turtle
+import time
+
 a=30
 win= turtle.Screen()
 win.title("Maze")
@@ -306,6 +308,26 @@ def text():
     turtle.hideturtle()
     turtle.pencolor("red")
     turtle.write("Puzzle Solved", font=("Algerian", 50, "normal"), align="center")
+    turtle.penup()
+    turtle.goto(220,165)
+    turtle.pendown()
+    turtle.pencolor("Blue")
+    turtle.write("Time", font=("Aerial", 20, "normal"), align="center")
+    turtle.penup()
+    turtle.goto(230,140)
+    turtle.pendown()
+    
+    time= end-start
+    print(time)
+    if time>=60:
+        min= time/60
+        sec= time%60
+        turtle.write(f"{min:.2f}min {sec:.2f}s", font=("Aerial", 20, "normal"), align="center")
+    
+    else:
+
+        turtle.write(f"{time:.2f}s ", font=("Aerial", 20, "normal"), align="center")
+
 
 def dash_line(t):
 
@@ -354,6 +376,8 @@ def check_boundary():
     y_max= -120
 
     if  y_min < cursor.ycor()< y_max and cursor.xcor()<=x_fixed:
+        global end
+        end= time.time()
         print("Destination Reached")
         stop_listening()
 
@@ -370,6 +394,7 @@ cursor.speed(10)
 cursor.width(1)
 
 win.listen()
+start= time.time()
 win.onkey(move_up,"Up")
 win.onkey(move_up,"W")
 
