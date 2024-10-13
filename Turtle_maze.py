@@ -395,17 +395,17 @@ cursor.width(1)
 
 win.listen()
 start= time.time()
-win.onkey(move_up,"Up")
-win.onkey(move_up,"W")
+win.onkeypress(move_up,"Up")
+win.onkeypress(move_up,"W")
 
-win.onkey(move_down,"Down")
-win.onkey(move_down,"S")
+win.onkeypress(move_down,"Down")
+win.onkeypress(move_down,"S")
 
-win.onkey(move_left,"Left")
-win.onkey(move_left,"A")
+win.onkeypress(move_left,"Left")
+win.onkeypress(move_left,"A")
 
-win.onkey(move_right,"Right")
-win.onkey(move_right,"D")
+win.onkeypress(move_right,"Right")
+win.onkeypress(move_right,"D")
 
 
 
