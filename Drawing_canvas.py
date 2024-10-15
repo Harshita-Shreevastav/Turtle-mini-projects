@@ -1,11 +1,12 @@
 import turtle
 import numpy as np
+import time
 
 # Initializations
 drawing= True
 win= turtle.Screen()
 win.title("Canvas")
-# win.setup(width=1.0, height= 1.0)
+win.setup(width=1.0, height= 1.0)
 
 canvas= win.getcanvas()
 
@@ -44,7 +45,39 @@ colors=[["red", "DarkRed"],
 #Function to create color dots for color selection ------------
 
 
+def col_print(keys):
+    text.clear()
+    text.width(5)
+    text.penup()
+    text.pendown()
+    text.write(f"Color:   {keys}", font=("Aerial", 15, "normal"), align="left")
 
+def wid_print(wid):
+    
+    wid_c.clear()
+    wid_c.width(5)
+    
+    wid_c.write(f"Width:   {wid}(Scroll to change the width))", font=("Aerial", 15, "normal"), align="left")
+
+def eraser_select():
+
+    eraser_c.setheading(0)
+    eraser_c.begin_fill()
+    for _ in range(4):
+        eraser_c.fd(75)
+        eraser_c.right(90)
+    eraser_c.end_fill()
+
+    eraser_c.right(45)
+    eraser_c.penup()
+    eraser_c.goto(eraser_pos)
+    eraser_c.pendown()
+    eraser_c.pencolor("white")
+    eraser_c.write("Eraser", font=("Aerial", 15, "normal"), align="center")
+    eraser_c.penup()
+    eraser_c.goto(e_edge)
+    eraser_c.pendown()
+    eraser_c.color("black", "AntiqueWhite3")
 
 def color_check(x,y):
     print("Just Entered into color_check func")
@@ -55,7 +88,9 @@ def color_check(x,y):
         
         if cursor.distance(pos)<13:
             print(f"pencolor: {keys}")
+            eraser_c.clear()
             cursor.pencolor(keys)
+            col_print(keys)
             break
             
     print("Exiting color_check")
@@ -66,7 +101,8 @@ def eraser_check(x,y):
     
     
         
-    if cursor.distance(eraser_pos)<13:
+    if cursor.distance(eraser_pos)<50:
+        eraser_select()
         print(f"pencolor: White")
         cursor.pencolor("white")
         
@@ -102,11 +138,16 @@ def width_select(event):
         if cursor.width()<=10:
             new_width= cursor.width()+1
             cursor.width(new_width)
+            
+            wid_print(new_width)
 
     if event.delta<0:
         if cursor.width()>=1:
             new_width= cursor.width()-1
             cursor.width(new_width)
+            
+            wid_print(new_width)
+            
 
 #Function to stop drawing when mouse left button is released
 def on_release(event):
@@ -222,6 +263,39 @@ print(eraser_pos)
 
 cursor.write("Eraser", font=("Aerial", 15, "normal"), align="center")
 
+text=turtle.Turtle()
+text.hideturtle()
+text.speed(0)
+text.pencolor("Black")
+
+text.width(5)
+text.penup()
+text.goto(-400, 300)
+text.pendown()
+text.write("Color: Black", font=("Aerial", 15, "normal"), align="left")
+
+wid_c=turtle.Turtle()
+wid_c.hideturtle()
+wid_c.speed(0)
+wid_c.pencolor("Black")
+
+wid_c.width(5)
+wid_c.penup()
+wid_c.goto(-100, 300)
+wid_c.pendown()
+wid_c.write("Width: 5(Scroll to change the width)", font=("Aerial", 15, "normal"), align="left")
+
+eraser_c=turtle.Turtle()
+eraser_c.hideturtle()
+eraser_c.speed(0)
+eraser_c.color("black", "AntiqueWhite3")
+
+eraser_c.width(5)
+eraser_c.penup()
+eraser_c.goto(x-15,y-20)
+e_edge=eraser_c.pos()
+eraser_c.pendown()
+
 
 
 
@@ -241,6 +315,10 @@ turtle.update()
 turtle.tracer(1)
 cursor.showturtle() 
 cursor.speed(0) 
+cursor.width(5)
+cursor.penup()
+cursor.goto(0,0)
+cursor.pendown()
 
 
 #  for user interaction--------------------
