@@ -10,11 +10,12 @@ win.setup(width=1.0, height= 1.0)
 
 canvas= win.getcanvas()
 
+tom=turtle.Turtle()
 cursor= turtle.Turtle()
-cursor.hideturtle()
+tom.hideturtle()
 turtle.tracer(0)
-cursor.width(5)
-cursor.speed(100)
+tom.width(5)
+tom.speed(100)
 
 
 dot_pos={}
@@ -89,7 +90,7 @@ def color_check(x,y):
         if cursor.distance(pos)<13:
             print(f"pencolor: {keys}")
             eraser_c.clear()
-            cursor.pencolor(keys)
+            cursor.color(keys,keys)
             col_print(keys)
             break
             
@@ -104,19 +105,29 @@ def eraser_check(x,y):
     if cursor.distance(eraser_pos)<50:
         eraser_select()
         print(f"pencolor: White")
-        cursor.pencolor("white")
+        cursor.color("black","white")
         
     print("Exiting color_check")
+
+def clear_check(x,y):
+    print("Just Entered into eraser_check func")
+
+    
+    
+        
+    if cursor.distance(clear_pos)<30:
+       cursor.clear()
+        
 
 
 
 def color_dot(x, pos):
-    cursor.penup()
-    cursor.goto(pos)
-    cursor.pendown()
-    cursor.dot(25,"Black")
-    cursor.dot(20, x)
-    dot_pos[x]=cursor.pos()
+    tom.penup()
+    tom.goto(pos)
+    tom.pendown()
+    tom.dot(25,"Black")
+    tom.dot(20, x)
+    dot_pos[x]=tom.pos()
 
 
 
@@ -173,6 +184,7 @@ def on_click(event):
     print("Going inside color_check func")
     eraser_check(x,y)
     color_check(x,y)
+    clear_check(x,y)
 
     
     print("Back Into on_click")    
@@ -189,7 +201,7 @@ def draw(event):
     x = event.x - win.window_width() / 2  # Adjust for window center
     y = win.window_height() / 2 - event.y  # Adjust for window center
 
-    
+
 
     cursor.goto(x, y)  # Move the turtle to the mouse position
 
@@ -203,65 +215,87 @@ def draw(event):
 # Placing the color selection bar
 
 color_bar=100
-cursor.penup()
-cursor.goto(-625,-200)
-cursor.pendown() 
-cursor.width(2)
-cursor_head=0
+tom.penup()
+tom.goto(-625,-200)
+tom.pendown() 
+tom.width(2)
+tom_head=0
 
 #Outer color border
 
 for _ in range(2):
-    cursor.fd(color_bar)
-    cursor_head+=90
-    cursor.setheading(cursor_head)
-    cursor.fd(5*color_bar)
-    cursor_head+=90
-    cursor.setheading(cursor_head)
+    tom.fd(color_bar)
+    tom_head+=90
+    tom.setheading(tom_head)
+    tom.fd(5*color_bar)
+    tom_head+=90
+    tom.setheading(tom_head)
 
 
 #The colar dots
 
-cursor.penup()
-cursor.goto(-595, 270)
-cursor.pendown()
-x= cursor.xcor()
-y=cursor.ycor()
+tom.penup()
+tom.goto(-595, 270)
+tom.pendown()
+x= tom.xcor()
+y=tom.ycor()
 for color in colors:
 
     
-        color_dot(color[0], cursor.pos())
+        color_dot(color[0], tom.pos())
         
-        x= cursor.xcor()
-        y=cursor.ycor()
+        x= tom.xcor()
+        y=tom.ycor()
 
-        cursor.penup()
-        cursor.goto(x+40,y)
-        cursor.pendown()
+        tom.penup()
+        tom.goto(x+40,y)
+        tom.pendown()
 
-        color_dot(color[1], cursor.pos())
+        color_dot(color[1], tom.pos())
         
-        cursor.penup()
-        cursor.goto(x,y-30)
-        cursor.pendown()
+        tom.penup()
+        tom.goto(x,y-30)
+        tom.pendown()
 
-cursor.penup()
-cursor.goto(x-15,y-20)
-cursor.pendown()
-cursor.width(5)
-cursor.setheading(0)
+tom.penup()
+tom.goto(x-15,y-20)
+tom.pendown()
+tom.width(5)
+tom.setheading(0)
 for _ in range(4):
-    cursor.fd(75)
-    cursor.right(90)
+    tom.fd(75)
+    tom.right(90)
 
-cursor.right(45)
-cursor.penup()
-cursor.fd((((75**2)*2)**(1/2)/2))
-cursor.pendown()
-eraser_pos=cursor.pos()
+tom.right(45)
+tom.penup()
+tom.fd((((75**2)*2)**(1/2)/2))
+tom.pendown()
+eraser_pos=tom.pos()
 print(eraser_pos)
 
-cursor.write("Eraser", font=("Aerial", 15, "normal"), align="center")
+tom.write("Eraser", font=("Aerial", 15, "normal"), align="center")
+
+clear_bar=35
+tom.penup()
+tom.goto(440,290)
+tom.pendown() 
+tom.width(5)
+tom.setheading(0)
+
+#Outer color border
+
+for _ in range(2):
+    tom.fd(5*clear_bar-50)
+    tom.left(90)
+    tom.fd(clear_bar)
+    tom.left(90)
+
+tom.penup()
+tom.goto(500,290)
+tom.pendown()
+clear_pos=tom.pos()
+
+tom.write("CLEAR", font=("Aerial", 20, "normal"), align="center")
 
 text=turtle.Turtle()
 text.hideturtle()
@@ -313,9 +347,9 @@ eraser_c.pendown()
 
 turtle.update()
 turtle.tracer(1)
-cursor.showturtle() 
 cursor.speed(0) 
 cursor.width(5)
+cursor.shape("circle")
 cursor.penup()
 cursor.goto(0,0)
 cursor.pendown()
