@@ -56,16 +56,20 @@ def color_check(x,y):
         if cursor.distance(pos)<13:
             print(f"pencolor: {keys}")
             cursor.pencolor(keys)
-            
-
-           
-       
-            
-          
-            
-            
             break
             
+    print("Exiting color_check")
+
+def eraser_check(x,y):
+    print("Just Entered into eraser_check func")
+
+    
+    
+        
+    if cursor.distance(eraser_pos)<13:
+        print(f"pencolor: White")
+        cursor.pencolor("white")
+        
     print("Exiting color_check")
 
 
@@ -126,6 +130,7 @@ def on_click(event):
     
     print(cursor.pos())
     print("Going inside color_check func")
+    eraser_check(x,y)
     color_check(x,y)
 
     
@@ -158,7 +163,7 @@ def draw(event):
 
 color_bar=100
 cursor.penup()
-cursor.goto(-625,-175)
+cursor.goto(-625,-200)
 cursor.pendown() 
 cursor.width(2)
 cursor_head=0
@@ -169,7 +174,7 @@ for _ in range(2):
     cursor.fd(color_bar)
     cursor_head+=90
     cursor.setheading(cursor_head)
-    cursor.fd(4*color_bar+60)
+    cursor.fd(5*color_bar)
     cursor_head+=90
     cursor.setheading(cursor_head)
 
@@ -198,6 +203,27 @@ for color in colors:
         cursor.penup()
         cursor.goto(x,y-30)
         cursor.pendown()
+
+cursor.penup()
+cursor.goto(x-15,y-20)
+cursor.pendown()
+cursor.width(5)
+cursor.setheading(0)
+for _ in range(4):
+    cursor.fd(75)
+    cursor.right(90)
+
+cursor.right(45)
+cursor.penup()
+cursor.fd((((75**2)*2)**(1/2)/2))
+cursor.pendown()
+eraser_pos=cursor.pos()
+print(eraser_pos)
+
+cursor.write("Eraser", font=("Aerial", 15, "normal"), align="center")
+
+
+
 
 
 
